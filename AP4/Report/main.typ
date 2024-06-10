@@ -1,4 +1,4 @@
-// ------ Info ------
+// ------ Imports ------
 #import "info.typ" as info
 
 // ------ Global Settings ------
@@ -13,10 +13,10 @@
 // ------ Settings for Body ------
 
 // Set spacing
-#set par(leading: 0.9em, first-line-indent: 1.0em, justify: true)
-#show par: set block(spacing: 1.2em)
+#set par(leading: 0.7em, first-line-indent: 1.0em, justify: true)
+#show par: set block(spacing: 1.4em)
 
-#show heading.where(level: 1): set block(above: 1.95em, below: 1em)
+#show heading.where(level: 1): set block(above: 2em, below: 1em)
 #show heading.where(level: 2): set block(above: 1.85em, below: 1em)
 #show heading.where(level: 3): set block(above: 1.75em, below: 1em)
 #show heading.where(level: 4): set block(above: 1.55em, below: 1em)
@@ -64,7 +64,7 @@
 #show raw.where(block: true): it => {
   block(
     width: 100%,
-    fill: rgb(90%, 95%, 95%),
+    fill: rgb(243, 243, 255),
     inset: 10pt,
     radius: 5pt,
     breakable: true,
@@ -90,15 +90,16 @@
 
 // --- Sections ---
 #pagebreak(weak: false)
-// #include "Sections/problem_1.typ"
+#include "Sections/problem_1.typ"
 
 #pagebreak(weak: false)
-// #include "Sections/problem_2.typ"
+#include "Sections/problem_2.typ"
 
 #pagebreak(weak: false)
-// #include "Sections/problem_3.typ"
+#include "Sections/problem_3.typ"
 
 
 // --- Appendixes ---
 
 // --- Bibliography ---
+//#bibliography(title: "Referências", full: true,"references.bib")

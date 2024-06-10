@@ -1,28 +1,26 @@
 = Problema 1 - Cobb-Douglas
 
-#rect(width: 100%)[
-  #text(weight: "bold")[1 - a) Enunciado ]
+#rect(width: 100%, radius: (rest: 4pt),stroke: 1pt + black, fill: rgb(255, 255, 240))[
+  #heading(level: 2, [1 - a)]) 
 ]
 
-A seguir está um modelo formulado por Charles Cobb e Paul Douglas, que estabelece a produção ($P$) em função do capital investido ($L$) e do trabalho ($K$). 
+A seguir está um modelo formulado por Charles Cobb e Paul Douglas, que estabelece a produção ($P$) em função do capital investido ($L$) e do trabalho ($K$). Esses valores são todos maiores ou iguais a 0.
 
 #par(first-line-indent: 0.1em)[
-Sejam $alpha, b in RR$, a função $g$: $RR^(2) -> RR$. Considere a notação $P = g(L, K)$.
+Sejam $alpha, b in RR$, a função $g$: $(RR_(+))^(2) -> RR$. Considere a notação $P = g(L, K)$.
 ]
 
 $ P = b L^alpha K^(1-alpha) $
 
-Considere $f: RR^(2) -> RR$. Sendo
+Com base em um conjunto de dados, queremos obter os parâmetros $alpha$ e $b$ que melhor se encaixam com esses dados. Para isso, é preciso fazer uma regressão exponencial.
 
-$ f(L, K) = ln(b) + alpha ln(L) + [1 - alpha] ln(K) $
+*Observação:* A fim de ser mais conciso, chamarei o Método dos Mínimos Quadrados, utilizado para resolver problemas de otimização, pela sua sigla MMQ.
 
-Com base em um conjunto de dados, queremos obter os parâmetros $alpha$ e $b$ que melhor se encaixam com esses db) Agora, use a função de Cobb-Douglas encontrada no item a) e teste a
-sua adequação calculando os valores da produção nos anos de 1910 e
-1920. Comente!ados. Para isso, é preciso fazer uma regressão exponencial.
+=== Abordagem inicial (1) - MMQ sobre um plano
 
-Definida a função, vamos pegar uma restrição dela no nosso conjunto de dados, um conjunto discreto finito. Sejam $L_1$, #h(0.1em) $K_1$, #h(0.1em) $P_1$ $in RR^(24)$. Temos que $P_1 = P|_(L_1 times K_1)$.
+Um técnica para isso, é trabalhar com o conjuntos de dados em escala logarítmica, tornando a superfície que é a imagem da função em um plano. Assim, reduzimos a regressão exponencial a um simples problema de regressão linear sobre um novo conjunto de dados. 
 
-Um técnica para isso, é trabalhar com o conjuntos de dados em escala logarítmica, tornando a superfície que é a imagem da função em um plano. Assim, reduzimos a regressão logísitica a um simple problema de regressão linear sobre um novo conjunto de dados. 
+Definida a função, vamos pegar uma restrição dela no nosso conjunto de dados. Sejam $L_1$, #h(0.1em) $K_1$, #h(0.1em) $P_1$ $in (RR)^(24)$. Temos que $P_1 = P|_(L_1 times K_1)$.
 
 #align(center)[
   #box(height: 20em, width: 44em,
@@ -30,189 +28,220 @@ Um técnica para isso, é trabalhar com o conjuntos de dados em escala logarítm
       #figure()[
         #image("../Pictures/cobb_douglas.png", width: 100%)
         
-        #text(size: 10pt)[
-          $g(x,y)$ com $alpha = 0.75$, $b = 0.75$ \
+        #text(size: 9pt)[
+          $g(L,K)$ com $alpha = 0.74461$, $b = 1.0071$ \
           #v(0.05em)
-          $P = 0.75 #h(0.1em) L^(0.75) #h(0.1em) K^(0.25) $
+          $P = b #h(0.1em) L^(alpha) #h(0.1em) K^((1 - alpha)) $
         ]
       ]
       
       #figure()[
         #image("../Pictures/cobb_douglas_log.png", width: 100%)
         
-        #text(size: 10pt)[
-          $f(x,y)$ com $alpha = 0.75$, $ b = 0.75$ \
+        #text(size: 9pt)[
+          $ln(g(L,K))$ com $alpha = 0.74461$, $b = 1.0071$ \
           #v(0.05em)
-          $ln(P) = 0.75 ln(L) + 0.25 ln(K)$
+          $ln(P) = ln(b) + alpha ln(L) + [1 - alpha] ln(K)$
         ]
       ]
     ]
   )
 ]
 
+\ // Quebra de linha
+
 Visto o efeito geométricos dessa mudança de escala, vamos ver a o efeito algébrico, o porquê dessas grandezas passarem a se relacionar de forma linear:
 
-$ ln(P) = ln(b) + alpha ln(L) + [1 - alpha] ln(K) = f(L,K)  $
+$ ln(P) = ln(b L^alpha K^(1 - alpha)) $
+$ ln(P) = ln(b) + alpha ln(L) + [1 - alpha] ln(K) $
 
-Aplicamos isso ao nosso conjunto de dados, obtendo os vetores $P_(ln)$, #h(0.1em) $L_(ln)$, #h(0.1em) $K_(ln)$ $in RR^(24)$ que satisfazem
+Essa é a parametrização de um plano em $(RR_+^*)^3$.Também note que os coeficientes de 2 direções estão relacionados, ambos dependem de $alpha$. Essa parametrização tem um propriedade interessante, ela possui um ponto fixo $p$, que pertence ao plano independente da escolha de $alpha$. 
 
-$ P_(ln) = ln(b) + alpha L_(ln) + [1 - alpha] K_(ln) = f|_(L_1 times K_1)(L, K) $
+Sobre isso, não é possível, utilizando o MMQ, garantir que os coeficientes encontrados satisfaçam essa condição. Então o modelo obtido pode não ser a função de Cobb-Douglas.
 
-Seja $A in RR^(24 times 3)$. Podemos expressar a equação acima da seguinte maneira
+Aplicamos o logaritmo ao nosso conjunto de dados, obtendo os vetores $P_(ln)$, #h(0.1em) $L_(ln)$, #h(0.1em) $K_(ln)$ $in RR^(24)$.
 
-$ P_(ln) = mat(delim:"[", 1, |, | ; 1, |, |; 1, L_(ln), K_(ln) ; dots.v, |, | ; 1, |, |) mat(delim:"[", ln(b); alpha; 1-alpha) = A #h(0.1em) mat(delim:"[", ln(b); alpha; 1-alpha) $
+Ignoramos a restrição (relação entre as variáveis) e fazemos uma regressão linear múltipla, obtendo os coeficientes para um plano em $RR^3$, que restringimos a $(RR_+)^3$. Para isso criamos a matriz
 
-Utilizamos o método dos mínimos quadrados para obter os coeficiente $alpha$, $ln(b)$ e $(1 - alpha)$ que descrevem a superfície que mais se aproxima do conjunto de dados. O que consiste em resolver para $accent(x,"-")$ a seguinte equação
+$ A = mat(delim:"[", 1, |, |; dots.v, L_(ln), K_(ln) ; 1, |, |)  $
 
-$ A^(T) A #h(0.1em) accent(x,"-") = A^(T) P_(ln) $
+Então utilizamos o MMQ para obter os coeficientes que descrevem a superfície que mais se aproxima do conjunto de dados. O que consiste em resolver para $accent(x,"-")$ a seguinte equação
 
-Para a resolução dessa equação, usei a função "Gaussian_Elimination_4" que consta na seção de funções extra. Obtendo, idealmente, $(ln(b), alpha_1, [1 - alpha_2])$. 
+$ A^(T) A accent(x,"-") = A^(T) P_(ln) $
 
-O parâmetro $b$ é facilmente obtido pela relação $b = e^(ln(b))$. Quanto aos outros parâmetros, percebo que $[alpha_1 + 1 - alpha_2] = 1.016$, portanto $alpha_1 != alpha_2$. 
+Disso, obtemos o seguinte o plano
 
-Diante desse impasse quanto ao valor de $alpha$, defino uma terceira variável $alpha_3 = (alpha_1 + alpha_2)/2$.
+$ P_(ln) = -0.069 + 0.769 #h(.3em) L_(ln) + 0.247 #h(.3em) K_(ln) $
 
-Verifico então qual par $(b,alpha_1)$, $(b,alpha_2)$ e $(b,alpha_3)$ minimiza a soma dos erros ao quadrado, chegando a conclusão que a melhor escolha seja $alpha_2$. 
+Então retornamos para escala anterior, enfim obtendo a função que melhor aproxima os dados. Então elevamos $e$ a cada lado da equação, obtendo
 
-Por fim, obtenho os parâmetros que melhor se encaixam aos dados:
+$ P = 0.933 #h(.3em) L^(0.769) #h(.3em) K^(0.247) $
 
-$ alpha = 0.76088 #h(0.2em) , #h(1em) b = 0.93313 $
+O que não é a função de Cobb-Douglas como definida no problema, dado que $ 0.769 + 0.247 = 1.016 => 0.247 != 1 - 0.769 $.
 
-#rect(width: 100%)[
-  #text(weight: "bold")[1 - b) Enunciado ]
+=== Abordagem principal (2) - MMQ sobre uma reta 
+
+Vide a inadequação da abordagem anterior, iremos resolver o problema de outra forma. Retomamos o problema a partir da seguinte equação:
+
+$ ln(P) = ln(b) + alpha ln(L) + [1 - alpha] ln(K) $
+
+Fazendo algumas manipulações algébricas, conseguimos relacionar esses dados sobre uma reta. O que torna possível a obtenção destes parâmetros com uma regressão linear simples.
+
+$ [ln(P) - ln(K)] = ln(b) + alpha #h(0.3em) [ln(L) - ln(K)] $
+
+$ underbrace(ln(P \/ K), "y") = ln(b) + alpha #h(0.3em) underbrace(ln(L \/ K), "x") $
+
+Sejam $y, x in RR^(24)$, $B in RR^(24 times 2)$. Convém reescrever a equação em forma matricial
+
+$ y =  mat(delim:"[", 1, |; dots.v,  x; 1, |) mat(delim:"[", ln(b); alpha) = B mat(delim:"[", ln(b); alpha) = B #h(0.2em) c $
+
+Então, para achar $alpha$ e $ln(b)$, os coeficientes da reta que melhor se encaixa aos pontos, usamos o MMQ, o que consiste em resolver para $accent(c,"-")$ a seguinte equação:
+
+$ B^(T) #h(.1em) B #h(.2em) accent(c,"-") = B^(T) #h(.1em) y $
+
+Fazendo isso, obtemos os parâmetros da função de Cobb-Douglas
+
+$ accent(c,"-") = mat(delim:"[", 0.007044; 0.74461) = mat(delim:"[", ln(b); alpha) $
+
+$ => #h(.5em) a = 0.74461 #h(.2em) , #h(1.3em) e^(ln(b)) = b = 1.0071  $
+
+Valendo que 
+
+$ P = 1.0071 #h(.3em) L^(0.74461) #h(.3em) P^(0.25539) $
+
+$ P approx.eq 1.007 #h(.3em) L^(0.745) #h(.3em) P^(0.255) $.
+
+
+#rect(width: 100%, radius: (rest: 4pt), stroke: 1pt + black, fill: rgb(255, 255, 220))[
+  #heading(level: 2, [1 - b)]) 
 ]
 
-Segue 
+No item anterior, concluí que a segunda abordagem é a mais adequada porque o modelo obtido nela é a função de Cobb-Douglas. Já na primeira abordagem, obtemos uma função que aproxima bem a função de Cobb-Douglas, apresentando diferenças significativas apenas para valores maiores de L e K.
 
-#table(
-  columns: 5,
-  [Ano], [P], [ $alpha_1$ ], [ $alpha_2$], [ $alpha_3$ ],
-
-  [1910], [159], [], [], [],
-  [1920], [231], [], [], []
-)
+O resultado dos dois modelos é muito parecido. No intervalo que tomamos L e K, ambas as funções aproximam bem os dados reais. Inclusive, a soma dos erros ao quadrado (SEQ) dos dois modelos é bem parecida.
 
 
-#rect(width: 100%)[
-  #text(weight: "bold")[1 - Operações realizadas no MATLAB]
+#align(center)[
+  #table( 
+    align: center,  columns: 4,
+
+    [ Ano ], [ P (Real) ], [ P (Abordagem 1) ], [ P (Abordagem 2) ],
+  
+    [1910], [159], [161,86], [161,76],
+    
+    [1920], [231], [236,49], [236,07]
+  )
 ]
 
+#align(center)[
+  #table( 
+    align: center,  columns: 3,
+
+    [ ] , [ Abordagem 1 ], [ Abordagem 2 ],
+  
+    [SEQ], [2702.8], [2670.7],
+  )
+]
+
+#v(7em)
+
+#rect(width: 100%, radius: (rest: 4pt), stroke: 1pt + black, fill: rgb(255, 255, 240))[
+  #text(weight: "bold")[1 - Implementação no MATLAB]
+]
+
+*Obtenção dos dados*
 ```matlab
->> Data = csvread("Datasets/cobb_douglas.csv")
-Data =
-        1899         100         100         100
-        1900         101         105         107
-        1901         112         110         114
-        1902         122         117         122
-        1903         124         122         131
-        1904         122         121         138
-        1905         143         125         149
-        1906         152         134         163
-        1907         151         140         176
-        1908         126         123         185
-        1909         155         143         198
-        1910         159         147         208
-        1911         153         148         216
-        1912         177         155         226
-        1913         184         156         236
-        1914         169         152         244
-        1915         189         156         266
-        1916         225         183         298
-        1917         227         198         335
-        1918         223         201         366
-        1919         218         196         387
-        1920         231         194         407
-        1921         179         146         417
-        1922         240         161         431
+>> Data = readmatrix("Datasets/cobb_douglas.csv"); 
 
->> P = Data(:,2); 
->> L = Data(:,3); 
->> K = Data(:,4);
+% Vetores com a amostragem
+>>  Anos = Data(:,1); P = Data(:,2); L = Data(:,3); K = Data(:,4); 
 
->> P_ln = log(P);
->> L_ln = log(L);
->> K_ln = log(K);
+% Transformação de escala
+>> P_ln = log(P); L_ln = log(L); K_ln = log(K); 
 
->> n = size(P, 1);
+n = size(P, 1); 
+```
 
->> A = [ones(n, 1), L_ln, K_ln];
+*Abordagem_1.m* -- Script
+```matlab
+A = [ones(n, 1), L_ln, K_ln]; 
 
->> x = Gaussian_Elimination_4([A' * A], [A' * P_ln])
-x =
-    -0.069214
-      0.76887
-      0.24711
+x = Gaussian_Elimination_4((A' * A), (A' * P_ln));
+% x = [-0.069214,   0.76887,    0.24711]
 
->> b = exp(x(1))
-b =
-      0.93313
+b_1 = exp(x(1)); % b = 0.93313
 
->> alpha_1 = x(2);
+SEQ_1 = sum( (P - b_1 .* L.^x(2) .* K.^x(3) ) .^ 2 );
+% SEQ_1 = 2702.8
 
->> alpha_2 = 1 - x(3)
+resultado_1 = [Anos, P, (b_1 .* L.^x(2) .* K.^x(3))];
 
->> alpha = (alpha_1 + alpha_2)/2
-alpha =
-      0.76088
+resultado_1;
+% Ano         P     Abordagem_1
+% 1899       100       100.44
+% 1900       101       106.03
+% 1901       112       111.63
+% 1902       122       119.03
+% 1903       124        125.1
+% 1904       122       125.93
+% 1905       143       131.58
+% 1906       152       141.92
+% 1907       151        149.6
+% 1908       126        137.1
+% 1909       155       156.54
+% 1910       159       161.86 <----
+% 1911       153       164.23
+% 1912       177       172.08
+% 1913       184        174.8
+% 1914       169       172.76
+% 1915       189       180.04
+% 1916       225       209.35
+% 1917       227       228.95
+% 1918       223       236.73
+% 1919       218       235.41
+% 1920       231       236.49 <----
+% 1921       179       191.21
+% 1922       240       207.83
+```
 
+*Abordagem_2.m* -- Script
+```matlab
+y_2 = log(P./K); x_2 = log(L./K);
+B = [ones(length(P), 1), x_2];
 
->> erro = sum((P - b .* L.^(alpha) .* K.^(1 - alpha)) .^ 2);
->> erro_1 = sum((P - b .* L.^(alpha_1) .* K.^(1 - alpha_1)) .^ 2)
->> erro_2 = sum((P - b .* L.^(alpha_2) .* K.^(1 - alpha_2)) .^ 2)
->> erro_min = sum((P - x(1) .* L.^(x(2)) .* K.^(x(3))) .^ 2)
+c = Gaussian_Elimination_4((B' * B), (B' * y_2));
 
->> disp([erro,       erro_1,      erro_2,      erro_min])
-        7373.6       7815.5       6953.4       2702.8
+alpha = c(2); % alpha = 0.74461
 
->> Comparar = zeros(2,4);
+b_2 = exp(c(1)); % b = 1.0071
 
->> Comparar(1,1) = P(12);
->> Comparar(2,1) = P(22);
->> Comparar(1,2) = b * L(12)^(alpha_1) * K(12)^(1 - alpha_1);
->> Comparar(1,3) = b * L(12)^(alpha_2) * K(12)^(1 - alpha_2);
->> Comparar(1,4) = b * L(12)^(alpha_3) * K(12)^(1 - alpha_3);
->> Comparar(2,2) = b * L(22)^(alpha_1) * K(22)^(1 - alpha_1);
->> Comparar(2,3) = b * L(22)^(alpha_2) * K(22)^(1 - alpha_2);
->> Comparar(2,4) = b * L(22)^(alpha_3) * K(22)^(1 - alpha_3);
+SEQ_2 = sum((P - b_2 .* L.^(alpha) .* K.^(1 - alpha)).^2);
+% SEQ_2 = 2670.7
 
->> disp(Comparar)
-          159       119.46       120.12       119.79
-          231       172.68       174.74        173.7
-
-
->> Comparar_tudo = zeros(24, 6);
- 
->> Comparar_tudo(:, 1) = Data(:,1);
->> Comparar_tudo(:, 2) = P;
->> Comparar_tudo(:, 3) = b .* L.^(alpha_1) .* K.^(1 - alpha_1);
->> Comparar_tudo(:, 4) = b .* L.^(alpha_2) .* K.^(1 - alpha_2);
->> Comparar_tudo(:, 5) = b .* L.^(alpha_3) .* K.^(1 - alpha_3);
-% Valroes da Função que minimiza os erros (deixa de ser a de Cobb-Douglas)
->> Comparar_tudo(:, 6) = b .* L.^(alpha_1) .* K.^(1 - alpha_2);
-
->> disp(Comparar_tudo)
-         1899          100           75           75           75       80.727
-         1900          101       79.094       79.118       79.106       85.225
-         1901          112       83.184       83.231       83.208       89.723
-         1902          122       88.603       88.662       88.632       95.671
-         1903          124       93.018       93.124       93.071       100.55
-         1904          122        93.55       93.747       93.648       101.21
-         1905          143       97.634       97.908       97.771       105.76
-         1906          152       105.16       105.49       105.32       114.07
-         1907          151        110.7       111.11       110.91       120.24
-         1908          126       101.38       102.04       101.71        110.2
-         1909          155       115.63       116.23       115.93       125.82
-         1910          159       119.46       120.12       119.79       130.09
-         1911          153       121.14       121.87        121.5          132
-         1912          177       126.84        127.6       127.22       138.31
-         1913          184       128.75        129.6       129.17       140.49
-         1914          169       127.18       128.14       127.66       138.85
-         1915          189       132.36       133.49       132.92       144.71
-         1916          225       153.62       154.83       154.22       168.26
-         1917          227       167.69       169.11        168.4       184.02
-         1918          223       173.15       174.81       173.98       190.27
-         1919          218       172.03       173.91       172.97       189.21
-         1920          231       172.68       174.74        173.7       190.08
-         1921          179       139.56       141.92       140.73       153.68
-         1922          240       151.61       154.02       152.81       167.04
+resultado_2 = [Anos, P, (b_2 .* L.^(alpha) .* K.^(1 - alpha))];
+% Ano         P      Abordagem_2
+% 1899       100       100.71
+% 1900       101       106.25
+% 1901       112       111.79
+% 1902       122       119.09
+% 1903       124       125.12
+% 1904       122       126.02
+% 1905       143       131.66
+% 1906       152       141.87
+% 1907       151       149.48
+% 1908       126       137.48
+% 1909       155       156.49
+% 1910       159       161.76 <----
+% 1911       153       164.16
+% 1912       177       171.88
+% 1913       184       174.62
+% 1914       169       172.74
+% 1915       189       180.04
+% 1916       225       208.73
+% 1917       227       228.06
+% 1918       223        235.9
+% 1919       218       234.84
+% 1920       231       236.07 <----
+% 1921       179       192.23
+% 1922       240        208.5
 ```

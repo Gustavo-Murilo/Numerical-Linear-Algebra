@@ -35,8 +35,7 @@ Professor: #text(style: "italic")[#info.teacher]
 // ------ Date ------
 
 // Date (automatic) 
-#let meses = ("janeiro", "fevereiro", "março", "abril", "maio", "junho", 
-              "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+#let meses = ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
 
 #let dia = info.date.day()
 #let mês = info.date.month()
