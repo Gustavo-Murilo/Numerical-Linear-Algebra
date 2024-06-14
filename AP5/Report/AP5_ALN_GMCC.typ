@@ -61,16 +61,18 @@
 #show link: set text(fill: rgb(20%, 20%, 100%))
 
 // Put code blocks into pretty blocks
-#show raw.where(block: true): it => {
-  block(
-    width: 100%,
-    fill: rgb(243, 243, 255),
-    inset: 10pt,
-    radius: 5pt,
-    breakable: true,
-    it
-  )
-}
+// #show raw.where(block: true): it => {
+//   block(
+//     width: 100%,
+//     fill: rgb(248, 248, 255),
+//     inset: 10pt,
+//     radius: 5pt,
+//     breakable: true,
+//     it
+//   )
+// }
+
+#set math.mat(delim: "[")
 
 // ------ Cover Page ------
 #counter(page).update(0) // Set page number to start at 0
