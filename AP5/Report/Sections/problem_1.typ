@@ -4,7 +4,7 @@
 
 O método de Gram Schmidt para ortogonalização de vetores é um método iterativo que, dado um conjunto de vetores linearmente independentes, gera um conjunto de vetores ortogonais. O método é baseado na projeção de um vetor sobre os vetores anteriores.
 
-=== Implementação
+== Implementação
 
 ==== qr_GS.m
 
@@ -40,7 +40,7 @@ O método de Gram Schmidt para ortogonalização de vetores é um método iterat
   ```
   ] )
 
-=== Testes
+== Testes
 
 A seguir estão algumas matrizes selecionadas para testar as funções implementadas neste trabalho.
 
@@ -50,13 +50,11 @@ $ A = mat(1, 2, 2; -1, 1, 2; -1, 0, 1; 1, 1, 2)       #h(1em)
   //#h(1em) D = mat(1, 1, 1; 0, 2, 2; 0, 0,3) 
   $
 
-A é uma matriz ideal para ortogonalização (tanto que é um exemplo dado pelo Poole), pois  possui vetores linearmente independentes. 
+A é uma matriz ideal para ortogonalização (tanto que é um exemplo dado pelo Poole), pois contém vetores para uma base de um subespaço vetorial. 
 
-B é uma matriz mágica de ordem par, portanto é muito má condicionada, o que é interessante para os testes. 
+B é uma matriz mágica de ordem par, portanto é muito má condicionada (ela é quase singular), o que é interessante para os testes. 
 
 C é uma matriz retangular com mais colunas do que linhas, o que não é o caso esperado de acordo com a apresentação da fatoração QR (a que é feita no Poole), contudo é um cenário de prova para a implementação e interpretação do método.
-
-//D é uma matriz quadrada e triangular superior, um caso bem simples. 
 
 ==== Testando para o cenário ideal (a matriz $A$), temos:
 
@@ -108,15 +106,15 @@ Ambas são boas fatorações, afinal a multiplicação das matrizes resulta na m
   height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
->> QCc*RCc - C
-   -2.2e-16    0    0    0
-          0    0    0    0
-
 >> QCb*RCb - B
     0    0    0    0
     0    0    0    0
     0    0    0    0
     0    0    0    0 
+
+>> QCc*RCc - C
+   -2.2e-16    0    0    0
+          0    0    0    0
 ```
   ] )
 

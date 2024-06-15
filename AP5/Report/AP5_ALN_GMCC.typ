@@ -74,6 +74,7 @@
 
 #set math.mat(delim: "[")
 
+
 // ------ Cover Page ------
 #counter(page).update(0) // Set page number to start at 0
 #include "cover_page.typ"

@@ -2,7 +2,7 @@
 
 = Problema 3
 
-=== Implementação
+== Implementação
 
 ==== qr_GSP.m
 #box(
@@ -13,7 +13,7 @@
   ```
   ] )
 
-=== Testes
+== Testes
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,

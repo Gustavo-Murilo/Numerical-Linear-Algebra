@@ -2,7 +2,7 @@
 
 = Problema 5
 
-=== Implementação
+== Implementação
 
 ==== espectro.m
 
@@ -34,7 +34,7 @@
   ```
   ] )
 
-=== Testes
+== Testes
 
 Para os testes, gero matrizes com números inteiros uniformemente distribuídos entre 1 e 9. 
 A matriz é então multiplicada por sua transposta para que seja simétrica e, portanto, tenha autovalres reais.
