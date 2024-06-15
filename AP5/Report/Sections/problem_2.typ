@@ -1,10 +1,13 @@
+#import "../info.typ" as info
+
 = Problema 2
 
+=== Implementação
 
 ==== qr_GSM.m
 
 #box(
-  height: auto, width: 100%, fill: rgb(248, 248, 255),
+  height: auto, width: 100%, fill: info.blue,
   inset: 10pt, radius: 5pt, [
   ```matlab
   % Entradas:
@@ -35,5 +38,39 @@
   ```
   ] )
 
-==== Testes:
+=== Testes
+
+Para a matriz A, essa modificação não surtiu efeito algum. Portanto, não há necessidade expor os resultados.
+
+Para a matriz B, uma matriz má condicionada, a modificação alterou minimamente uma entrada da matriz R. Quanto à matriz Q, notamos que a ultima colunas dessa nova Q é diferente da anterior.
+
+#box(
+  height: auto, width: 100%, fill: info.light_yellow,
+  inset: 10pt, radius: 2pt, [
+```matlab
+>> QCb(:,4)' % Quarta coluna da matriz Q obtida com qr_GSC
+    0.32233    0.40291    0.64466   -0.56408
+
+>> [QMb, RMb] = qr_GSM(B);
+
+>> QMb(:,4)'
+    0.94679    0.063119    0.25248   -0.18936
+```
+  ] )
+
+#box(
+  height: auto, width: 100%, fill: info.light_yellow,
+  inset: 10pt, radius: 2pt, [
+```matlab
+```
+  ] )
+
+
+#box(
+  height: auto, width: 100%, fill: info.light_yellow,
+  inset: 10pt, radius: 2pt, [
+```matlab
+```
+  ] )
+
 

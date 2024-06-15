@@ -1,14 +1,14 @@
+#import "../info.typ" as info
+
 = Problema 4
+
+=== Implementação
 
 ==== qr_House.m
 
 #box(
-  height: auto,
-  width: 100%,
-  fill: rgb(248, 248, 255),
-  inset: 10pt,
-  radius: 5pt,
-  [
+  height: auto, width: 100%, fill: info.blue,
+  inset: 10pt, radius: 5pt, [
   ```matlab
   % Entradas:
   %   A - matriz de entrada (m x n)
@@ -42,19 +42,13 @@
     R = triu(A); % Os valores abaixo da diagonal seriam proximos de 0
   end
   ```
-  ]
-)
-
+  ] )
 
 ==== qr_House_min.m
 
 #box(
-  height: auto,
-  width: 100%,
-  fill: rgb(248, 248, 255),
-  inset: 10pt,
-  radius: 5pt,
-  [
+  height: auto, width: 100%, fill: info.blue,
+  inset: 10pt, radius: 5pt, [
   ```matlab
   % Entradas:
   %   A - matriz (m x n)
@@ -95,18 +89,13 @@
     R = triu(A(1:k, 1:n)); % Para que coincida com
   end %endfunction
   ```
-  ]
-)
+  ] )
 
 ==== constroi_Q.m
 
 #box(
-  height: auto,
-  width: 100%,
-  fill: rgb(248, 248, 255),
-  inset: 10pt,
-  radius: 5pt,
-  [
+  height: auto, width: 100%, fill: info.blue,
+  inset: 10pt, radius: 5pt, [
   ```matlab
   % Entradas:
   %   U - matriz (m x n) com vetores de Householder
@@ -125,8 +114,21 @@
     end
   end
   ```
-  ]
-)
-
+  ] )
 
 ==== Testes
+
+#box(
+  height: auto, width: 100%, fill: info.light_yellow,
+  inset: 10pt, radius: 2pt, [
+```matlab
+```
+  ] )
+
+
+#box(
+  height: auto, width: 100%, fill: info.light_yellow,
+  inset: 10pt, radius: 2pt, [
+```matlab
+```
+  ] )

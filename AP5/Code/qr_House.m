@@ -9,7 +9,7 @@ function [U, R] = qr_House(A)
   % Inicializar a matriz U com zeros
   U = zeros(m, n);
   
-  for i = 1 : min(m,n)
+  for i = 1 : n
     % Extrair a coluna atual a partir da i-ésima linha até o final
     x = A(i:m, i);
     

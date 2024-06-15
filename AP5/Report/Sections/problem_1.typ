@@ -1,17 +1,16 @@
+#import "../info.typ" as info
+
 = Problema 1
 
 O método de Gram Schmidt para ortogonalização de vetores é um método iterativo que, dado um conjunto de vetores linearmente independentes, gera um conjunto de vetores ortogonais. O método é baseado na projeção de um vetor sobre os vetores anteriores.
 
+=== Implementação
+
 ==== qr_GS.m
 
-
 #box(
-  height: auto,
-  width: 100%,
-  fill: rgb(248, 248, 255),
-  inset: 10pt,
-  radius: 5pt,
-  [
+  height: auto, width: 100%, fill: info.blue,
+  inset: 10pt, radius: 5pt, [
   ```matlab
   % Entradas:
   %   A - matriz (m x n)
@@ -39,10 +38,9 @@ O método de Gram Schmidt para ortogonalização de vetores é um método iterat
     end
   end
   ```
-  ]
-)
+  ] )
 
-==== Matrizes para os testes
+=== Testes
 
 A seguir estão algumas matrizes selecionadas para testar as funções implementadas neste trabalho.
 
@@ -63,7 +61,7 @@ C é uma matriz retangular com mais colunas do que linhas, o que não é o caso 
 ==== Testando para o cenário ideal (a matriz $A$), temos:
 
 #box(
-  height: auto, width: 100%, fill: rgb(255, 255, 235),
+  height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
 >> [QCa, RCa] = qr_GS(A);
@@ -84,7 +82,7 @@ RCa =
 Considerando $A = Q R$, para verificar a ortogonalidade de $Q$, calculamos $Q^(T)Q$ e para verificar a acurácua decomposição $Q R$, calculamos $Q R - A$. 
 
 #box(
-  height: auto, width: 100%, fill: rgb(255, 255, 235),
+  height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
 >> QCa'*QCa
@@ -104,10 +102,10 @@ Pode ser visto que a decomposição $Q R$ obtida foi muito boa. $Q$ não é por 
 
 ==== Para as outras matrizes (B e C), temos:
 
-Ambas são boas fatorações, afinal a multiplicação das matrizes resulta na matriz original, ou algo muito próximo disso.
+Ambas são boas fatorações, afinal a multiplicação das matrizes resulta na matriz original, ou algo muito próximo disso. Vale ressaltar que a fatoração funciona para C (uma matriz com mais colunas do que linhas), mesmo que esvaziada do sentido.
 
 #box(
-  height: auto, width: 100%, fill: rgb(255, 255, 235),
+  height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
 >> QCc*RCc - C
@@ -125,7 +123,7 @@ Ambas são boas fatorações, afinal a multiplicação das matrizes resulta na m
 Testando a ortogonalidade de B, vemos que o resultado não é o melhor, muitas entradas são muito próximas de zero, outras nem tanto (na ordem de $10^(-1)$). Isso é uma consequência do mal condicionamento de B.
 
 #box(
-  height: auto, width: 100%, fill: rgb(255, 255, 235),
+  height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab 
 >> QCb'*QCb
@@ -139,7 +137,7 @@ Testando a ortogonalidade de B, vemos que o resultado não é o melhor, muitas e
 Para C, temos que avaliar algo diferente, afinal a matriz Q associada a ela não pode ser ortogonal, ela não é LI. Note que há um bloco que é a indentidade, o que acontece devido ao fato de que os dois primeiros vetores são LI, se fossem outros, o bloco da identidadde estaria em outra posição (ao menos é   .
 
 #box(
-  height: auto, width: 100%, fill: rgb(255, 255, 235),
+  height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab 
 >> QCc'*QCc

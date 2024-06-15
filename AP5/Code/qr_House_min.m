@@ -17,7 +17,7 @@ function [U,R] = qr_House_min(A)
   R = A;
   U = zeros(m, k);
   
-  for i = 1 : min(m,n)
+  for i = 1 : k
     x = A(i:m, i);
     
     % Obtém o vetor normal ao hiperplano de reflexão

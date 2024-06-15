@@ -5,12 +5,12 @@
 function [Q] = constroi_Q(U)
   % Obtém dimensões de U e inicializa Q
   [m,n] = size(U);
-  Q = eye(m,n);
+  Q = eye(m,m);
   
   for i = 1 : n
     u = U(:,i);
 
     % Aplica a tranformação de Householder pela direita Q*(H - u*u')
-    Q = Q - 2*Q*(u*u');
+    Q = Q - 2 * Q * (u * u');
   end
 end
