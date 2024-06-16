@@ -3,7 +3,7 @@
 % Saídas:
 %   U - matriz (m x n) contendo os vetores normais
 %   R - matriz (m x k) triangular superior
-function [U,R] = qr_House_min(A)
+function [U,R] = qr_House_2(A)
   [m, n] = size(A);
   
   % Determina a dimensão correta
@@ -35,4 +35,4 @@ function [U,R] = qr_House_min(A)
   end
 
   R = triu(A(1:k, 1:n)); % Para que coincida com
-end %endfunction
+end

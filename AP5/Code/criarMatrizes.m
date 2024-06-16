@@ -27,10 +27,10 @@ C = [2, 1, 2, 4;
 % [UHc, RHc] = qr_House(C) % Erro devido as dimensoes
 [UKc, RKc] = qr_House_min(C)
 
-QHa = constroi_Q(UHa)
-QHb = constroi_Q(UHb)
-% QHc = constroi_Q(UHc)
+QHa = constroi_Q(UHa, 1)
+QHb = constroi_Q(UHb, 1)
+% QHc = constroi_Q(UHc, 1)
 
-QKa = constroi_Q(UKa)
-QKb = constroi_Q(UKb)
-QKc = constroi_Q(UKc)
+QKa = constroi_Q(UKa, 2)
+QKb = constroi_Q(UKb, 2)
+QKc = constroi_Q(UKc, 2)
