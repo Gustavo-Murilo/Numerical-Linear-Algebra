@@ -6,6 +6,8 @@
 
 ==== espectro.m
 
+Vale comentar que optei pela função qr_GSM para fazer a fatoração QR por ser mais estável que a qr_GS e mais simples (não é preciso construi Q a partir de U) do que as fatorações que utilizam os refletores de Householder.
+
 #box(
   height: auto, width: 100%, fill: info.blue,
   inset: 10pt, radius: 5pt, [

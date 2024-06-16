@@ -3,74 +3,31 @@
 % Saídas:
 %   Q = matriz (m x n) ortogonal
 %   R = matriz (n x n) triangular superior
-function [Q,R,P] = qr_GSP(A)
+function [Q, R, P] = qr_GSP(A)
   [m, n] = size(A);
+  Q = zeros(m, n);
+  R = zeros(n, n);
+  P = eye(n); % Matriz de permutação
 
-  % Inicializa matrizes
-  Q = zeros(m,n); 
-  R = zeros(n); 
-  P = eye(n);
-  
+  for j = 1:n
+    % Encontrar o índice da coluna com a maior norma
+    [~, indice_max] = max(vecnorm(A(:, j:n)));
+    indice_max = indice_max + j - 1;
 
-  norm_cols = vecnorm(A,2,1); % norma 2 das colunas de A
-  v = zeros(n,1);
-  
-  for j = 1 : n
-   
-    for j = 1 : n-i+1
+    % Trocar colunas de 
+    if indice_max ~= j
+      A(:, [j, indice_max]) = A(:, [indice_max, j]);
+      P(:, [j, indice_max]) = P(:, [indice_max, j]);
     end
-
-    v = A(:,j); % Coluna i de A
-    
-    for i = 1 : n
-      R(i,j) = dot(Q(:,i), v); % Atualiza a cada iteraçao
-      v = v - R(i,j) * Q(:,i);
+        
+    % Aplicar o processo de Gram-Schmidt
+    R(j, j) = norm(A(:, j));
+    Q(:, j) = A(:, j) / R(j, j);
+        
+    for k = j+1:n
+      R(j, k) = Q(:, j)' * A(:, k);
+      A(:, k) = A(:, k) - Q(:, j) * R(j, k);
     end
-    
-    R(j,j) = norm(v,2);
-    Q(:,j) = v / R(j,j);
-  end
-end %endfunction
-
-
-
-
-function [Q,R,pivot] = Fatoracao_QR_TrocaColunas(A)
-  [m,n] = size(A)
-  
-  nainf = norm(A,’inf’); 
-  eps = 1.0E-14;
-
-  pivot = zeros(n); R = zeros(n,n); Q = zeros(m,n)
-  posto = n;
-
-  for i=1:n
-    pivot(i) = i
-  end
-  
-  V = A
-  
-  for i = 1:n
-    [p,nmax] = DeterminaNormaMaxima(V,i,n)
-    
-    if (p <> i) then
-      [R,V,pivot] = TrocaConteudoColunas(i,p,R,V,pivot)
-    end
-    
-    R(i,i) = nmax
-      
-    if ((nmax < eps * nainf) & (posto == n)) then
-      posto = i-1
-    end
-
-    Q(:,i) = V(:,i)/R(i,i)
-  
-    for j = (i+1):n
-      R(i,j) = Q(:,i)’*V(:,j)
-      V(:,j) = V(:,j) - R(i,j)*Q(:,i)
-    end
-
   end
 
-  printf("Rank num´erico detectado: %d \n",posto)
-endfunction
+end

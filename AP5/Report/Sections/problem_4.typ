@@ -137,7 +137,9 @@ Se $m < n$ : temos $Q in MM^(m times m)$ e $R in MM^(m times n)$, o resultado ge
 
 == Testes
 
-Testes - $A (4 times 3)$
+#align(center)[Testes - $A (4 times 3)$]
+
+Como pode ser visto no exemplo a seguir, a segunda versão retorna um "recorte" do que seria retornado pela primeira versão. Nesse cenário, fica bem claro que isso é, na verdade, uma seleção da informação relevante, afinal foram cortadas as colunas ou linhas de zero.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -155,7 +157,13 @@ RHa =
     0   -2.2361   -3.3541
     0         0   -1.2247
     0         0    0
+```
+  ] )
 
+#box(
+  height: auto, width: 100%, fill: info.light_yellow,
+  inset: 10pt, radius: 2pt, [
+```matlab
 >> [UKa, RKa] = qr_House_2(A)
 UKa =
     0.86603          0          0
@@ -170,15 +178,13 @@ RKa =
 ```
   ] )
 
-Como pode ser visto no exemplo acima, a segunda versão retornar um "recorte" do que seria retornado pela primeira versão. Nesse cenário, fica bem claro que isso é, na verdade, uma seleção da informação relevante, afinal foram cortadas as colunas ou linhas de zero.
-
 Construindo as matrizes Q correspondentes, vemos que ambas são muito próximas de serem ortogonais, sem diferença significativa.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
->> QHa = constroi_Q(UHa, 1)
+>> QHa = constroi_Q(UHa, 1) % Versão 1
 QHa =
    -0.5   -0.67082    0.40825   -0.36515
     0.5   -0.67082    4.4e-16    0.54772
@@ -188,7 +194,7 @@ QHa =
 >> norm(QHa' * QHa - eye(4)) % Teste de ortogonalidade
     1.7e-15
 
->> QKa = constroi_Q(UKa, 2)
+>> QKa = constroi_Q(UKa, 2)  % Versão 2
 QKa =
    -0.5   -0.67082    0.40825
     0.5   -0.67082    4.4e-16
@@ -202,67 +208,40 @@ QKa =
 
 Ao multiplicar as matrizes, o resultado indifere da função. Obtemos umas matriz quase igual a $A$, porém com $9.9e-16$ ao invés de $0$ em uma das entradas, um erro insignificante que pode ser desconsiderado. 
 
-Testes - $B (4 times 4)$
+#v(2em)
+#align(center)[Testes - $B (4 times 4)$]
+
+Para B a fatoração funciona e as duas versões tem comportamento similar ao apresentado no exemplo anterior.
+
+Quanto à ortogonalidade e à acurárcia, vemos que essa decomposição é precisa.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
->> [UHb, RHb] = qr_House_1(B)
-UHb =
-    0.95471          0          0    0
-    0.13469    0.88727          0    0
-    0.24243    0.13344   -0.88514    0
-    0.10775    0.44152    0.46532    1
-
-RHb =
-   -19.442   -10.595   -10.904    -18.516
-         0   -16.054   -15.726   -0.98476
-         0         0    1.9486    -5.8458
-         0         0         0   -5.3e-15
-
->> [UKb, RKb] = qr_House_2(B)
-UKb =
-    0.95471          0          0
-    0.13469    0.88727          0
-    0.24243    0.13344   -0.88514
-    0.10775    0.44152    0.46532
-
-RKb =
-   -19.442   -10.595   -10.904    -18.516
-         0   -16.054   -15.726   -0.98476
-         0         0    1.9486    -5.8458
+>> norm(QHb * RHb - B)        % Versão 1
+    1.9e-14
+>> norm(QHb' * QHb - eye(4))  % Versão 1
+    7.5e-16
+>> norm(QKb * RKb - B)        % Versão 2
+   1.8e-14
+>> norm(QKb' * QKb - eye(3))  % Versão 2
+   6.8e-16
 ```
   ] )
 
+Para matrizes má condicionadas de ordem eleveda, ambas as funções apresentam o mesmo resultado, as matrizes da fatoração vão igualmente bem em todos os testes. Fiz o experimento com uma matriz mágica de ordem 100.
 
+#v(2em)
+#align(center)[Testes - $C (2 times 4)$]
 
-
-#box(
-  height: auto, width: 100%, fill: info.light_yellow,
-  inset: 10pt, radius: 2pt, [
-```matlab
-```
-  ] )
-
+A primeira versão de qr_House não é capaz de lidar com matrizes com esses dimensões, onde $n > m$. Assim, só apresentarei os testes com qr_House_2.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
-```
-  ] )
-
-
-
-Testes - $C (2 times 4)$
-
-#box(
-  height: auto, width: 100%, fill: info.light_yellow,
-  inset: 10pt, radius: 2pt, [
-```matlab
-% [UHc, RHc] = qr_House_1(C) % Erro devido as dimensoes
-[UKc, RKc] = qr_House_2(C)
+>> [UKc, RKc] = qr_House_2(C)
 UKc =
     0.88167    0
     0.47186   -1
@@ -270,15 +249,28 @@ UKc =
 RKc =
     -3.6056    -1.3868   -2.7735   -3.8829
           0    0.27735    0.5547    2.2188
+
+>> QKc = constroi_Q(UKc, 2)
+QKc =
+    -0.5547    0.83205
+   -0.83205    -0.5547
 ```
   ] )
 
-
+Perceba que esta também é uma fatoração bem sucedida. Temos que $C = Q R$ e $Q$ é praticamente ortogonal.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
+>> QKc * RKc
+    2    1    2    4
+    3    1    2    2
 
+>> norm(QKc * RKc - C)
+    7.8e-15
+
+>> norm(QKc' * QKc - eye(2))
+    1.1e-15
 ```
   ] )

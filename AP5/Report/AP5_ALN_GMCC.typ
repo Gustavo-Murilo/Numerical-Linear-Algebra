@@ -107,6 +107,8 @@
 #pagebreak(weak: false)
 #include "Sections/problem_5.typ"
 
+#pagebreak(weak: false)
+#include "Sections/conclusao_testes.typ"
 
 // --- Appendixes ---
 
