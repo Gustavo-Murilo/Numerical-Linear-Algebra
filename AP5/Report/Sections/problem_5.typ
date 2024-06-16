@@ -6,7 +6,7 @@
 
 ==== espectro.m
 
-Vale comentar que optei pela função qr_GSM para fazer a fatoração QR por ser mais estável que a qr_GS e mais simples (não é preciso construi Q a partir de U) do que as fatorações que utilizam os refletores de Householder.
+Vale comentar que optei pela função qr_GSM para fazer a fatoração $Q R$ por ser mais estável que a qr_GS e mais simples (não é preciso construir $Q$ a partir de $U$) do que as fatorações que utilizam os refletores de Householder.
 
 #box(
   height: auto, width: 100%, fill: info.blue,
@@ -38,9 +38,11 @@ Vale comentar que optei pela função qr_GSM para fazer a fatoração QR por ser
 
 == Testes
 
-Para os testes, gero matrizes com números inteiros uniformemente distribuídos entre 1 e 9. 
+Para os testes, gero matrizes com números inteiros uniformemente distribuídos entre $1$ e $9$. 
 A matriz é então multiplicada por sua transposta para que seja simétrica e, portanto, tenha autovalres reais.
 Então comparamos os autovalores obtidos pela função criada com os autovalores obtidos pela função `eig` do MATLAB.
+
+Todos os testes a seguir foram feitos com uma tolerância de $10^{-12}$, e mesmo assim os resultados foram obtidos muito rapidamente. 
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -57,7 +59,6 @@ Então comparamos os autovalores obtidos pela função criada com os autovalores
     606.58    61.75    29.118    4.9587    0.58848
    ``` ] )
 
-Os testes acima (assim como todos os posteriores) foram feitos com uma tolerância de $10^{-12}$, e mesmo assim foram obtidos muito rapidamente.
 
 Uma ideia interessante para escalar os testes para matrizes maiores, é verificar a norma entre a diferença do resultado das funções, ao invés de comparar os vetores diretamente. 
 
@@ -85,7 +86,7 @@ Uma ideia interessante para escalar os testes para matrizes maiores, é verifica
     1.9148e-11
     ``` ] )
 
-Verificando para uma matriz de ordem 100, temos:
+Verificando para uma matriz de ordem $100$, temos:
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -97,6 +98,6 @@ Verificando para uma matriz de ordem 100, temos:
     7.5866e-10
    ``` ] )
 
-Esse resultado foi bem precismo, mas a função já demorou bem mais para convergir (aproximadamente 1 minuto ).
+Esse resultado foi bem precismo, mas a função já demorou bem mais para convergir (aproximadamente $1$ minuto ).
 
-Para matrizes maiores (de ordem 300 por exemplo), a nossa função passa a ser muito lenta (demorando quase 6 minutos para convergir) o que torna o seu uso inviável.
+Para matrizes maiores, a nossa função passa a ser muito lenta o que torna o seu uso inviável. Por exemplo, para uma matriz de ordem $300$ o algoritmo demorou quase 6 minutos para convergir.

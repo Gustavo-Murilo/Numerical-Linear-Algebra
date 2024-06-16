@@ -11,19 +11,21 @@ B = [16,   2,   3,  13;
 C = [2, 1, 2, 4; 
      3, 1, 2, 2]
 
-
 [QCa, RCa] = qr_GS(A)
 [QMa, RMa] = qr_GSM(A)
+[QPa, RPa, Pa] = qr_GSP(A)
 [UHa, RHa] = qr_House_1(A)
 [UKa, RKa] = qr_House_2(A)
 
 [QCb, RCb] = qr_GS(B)
 [QMb, RMb] = qr_GSM(B)
+[QPb, RPb, Pb] = qr_GSP(B)
 [UHb, RHb] = qr_House_1(B)
 [UKb, RKb] = qr_House_2(B)
 
 [QCc, RCc] = qr_GS(C)
 [QMc, RMc] = qr_GSM(C)
+[QPc, RPc, Pc] = qr_GSP(C)
 % [UHc, RHc] = qr_House_1(C) % Erro devido as dimensoes
 [UKc, RKc] = qr_House_2(C)
 

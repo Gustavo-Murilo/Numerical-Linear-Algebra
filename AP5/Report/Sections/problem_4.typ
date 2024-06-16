@@ -6,7 +6,7 @@
 
 ==== qr_House_1.m
 
-Esta é a implementação padrão do método de Householder para fatoração QR. Tranforsma a matriz $A in MM^(m times n)$ em uma matriz triangular superior $R in MM^(m times n)$ e salvamos os refletores usados para obter Q posteriormente.
+Esta é a implementação padrão do método de Householder para fatoração $Q R$. Tranforsma a matriz $A in MM^(m times n)$ em uma matriz triangular superior $R in MM^(m times n)$ e salvamos os refletores usados para obter $Q$ posteriormente.
 Essa primeira versão de implementação só abrange os casos onde $m >= n$.
 
 #box(
@@ -49,7 +49,7 @@ Essa primeira versão de implementação só abrange os casos onde $m >= n$.
 
 ==== qr_House_2.m
 
-Seja $A in M^(m times n)$. Para quaisquer $m, n in NN$ a função qr_House_2(A) é capaz de realizar parte da fatoração, o que é feito por completo ao construi Q a partir de U. 
+Seja $A in M^(m times n)$. Para quaisquer $m, n in NN$ a função `qr_House_2(A)` é capaz de realizar parte da fatoração, o que é feito por completo ao construi $Q$ a partir de $U$. 
 
 Se $m > n$ : a função obtém o mesmo resultado que qr_GS.
 
@@ -77,7 +77,6 @@ Se $m < n$ : temos $Q in MM^(m times m)$ e $R in MM^(m times n)$, o resultado ge
     end
 
     % Inicializa matrizes
-    R = A;
     U = zeros(m, k);
     
     for i = 1 : k
@@ -97,7 +96,7 @@ Se $m < n$ : temos $Q in MM^(m times m)$ e $R in MM^(m times n)$, o resultado ge
       A(i:m, i:n) = A(i:m, i:n) - 2*u*(u'*A(i:m, i:n));
     end
 
-    R = triu(A(1:k, 1:n)); % Para que coincida com a matriz R de qr_GS
+    R = triu(A(1:k, 1:n)); % Para que seja compatível com a matriz R de qr_GS
   end
   ```
   ] )
@@ -178,7 +177,7 @@ RKa =
 ```
   ] )
 
-Construindo as matrizes Q correspondentes, vemos que ambas são muito próximas de serem ortogonais, sem diferença significativa.
+Construindo as matrizes $Q$ correspondentes, vemos que ambas são muito próximas de serem ortogonais, sem diferença significativa.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -211,7 +210,7 @@ Ao multiplicar as matrizes, o resultado indifere da função. Obtemos umas matri
 #v(2em)
 #align(center)[Testes - $B (4 times 4)$]
 
-Para B a fatoração funciona e as duas versões tem comportamento similar ao apresentado no exemplo anterior.
+Para $B$ a fatoração funciona e as duas versões tem comportamento similar ao apresentado no exemplo anterior.
 
 Quanto à ortogonalidade e à acurárcia, vemos que essa decomposição é precisa.
 

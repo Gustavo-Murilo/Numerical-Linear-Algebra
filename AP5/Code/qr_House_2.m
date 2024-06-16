@@ -14,7 +14,6 @@ function [U,R] = qr_House_2(A)
   end
 
   % Inicializa matrizes
-  R = A;
   U = zeros(m, k);
   
   for i = 1 : k
@@ -34,5 +33,5 @@ function [U,R] = qr_House_2(A)
     A(i:m, i:n) = A(i:m, i:n) - 2*u*(u'*A(i:m, i:n));
   end
 
-  R = triu(A(1:k, 1:n)); % Para que coincida com
+  R = triu(A(1:k, 1:n)); % Para que seja compatível com a matriz R de qr_GS
 end

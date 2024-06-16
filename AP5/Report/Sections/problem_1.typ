@@ -2,7 +2,7 @@
 
 = Problema 1
 
-O método de Gram Schmidt para ortogonalização de vetores é um método iterativo que, dado um conjunto de vetores linearmente independentes, gera um conjunto de vetores ortogonais. O método é baseado na projeção de um vetor sobre os vetores anteriores.
+O método de Gram Schmidt para ortogonalização de vetores é um método iterativo que, dado um conjunto de vetores linearmente independentes, gera um conjunto de vetores ortogonais. De modo que cada vetor de $Q$ é obtido subtraindo as projeções do vetor atual sobre os vetores ortogonais anteriores.
 
 == Implementação
 
@@ -50,11 +50,11 @@ $ A = mat(1, 2, 2; -1, 1, 2; -1, 0, 1; 1, 1, 2)       #h(1em)
   //#h(1em) D = mat(1, 1, 1; 0, 2, 2; 0, 0,3) 
   $
 
-A é uma matriz ideal para ortogonalização (tanto que é um exemplo dado pelo Poole), pois contém vetores para uma base de um subespaço vetorial. 
+$A$ é uma matriz ideal para ortogonalização (tanto que é um exemplo dado pelo Poole), pois contém vetores para uma base de um subespaço vetorial. 
 
-B é uma matriz mágica de ordem par, portanto é muito má condicionada (ela é quase singular), o que é interessante para os testes. 
+$B$ é uma matriz mágica de ordem par, portanto é muito má condicionada (ela é quase singular), o que é interessante para os testes. 
 
-C é uma matriz retangular com mais colunas do que linhas, o que não é o caso esperado de acordo com a apresentação da fatoração QR (a que é feita no Poole), contudo é um cenário de prova para a implementação e interpretação do método.
+$C$ é uma matriz retangular com mais colunas do que linhas, o que não é o caso esperado de acordo com a apresentação da fatoração $Q R$ (a que é feita no Poole), contudo é um cenário de prova para a implementação e interpretação do método.
 
 ==== Testando para o cenário ideal (a matriz $A$), temos:
 
@@ -100,7 +100,7 @@ Pode ser visto que a decomposição $Q R$ obtida foi muito boa. $Q$ não é por 
 
 ==== Para as outras matrizes (B e C), temos:
 
-Ambas são boas fatorações, afinal a multiplicação das matrizes resulta na matriz original, ou algo muito próximo disso. Vale ressaltar que a fatoração funciona para C (uma matriz com mais colunas do que linhas), mesmo que esvaziada do sentido.
+Ambas são boas fatorações, afinal a multiplicação das matrizes resulta na matriz original, ou algo muito próximo disso. Vale ressaltar que a fatoração funciona para $C$ (uma matriz com mais colunas do que linhas), mesmo que esvaziada do sentido.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -118,7 +118,7 @@ Ambas são boas fatorações, afinal a multiplicação das matrizes resulta na m
 ```
   ] )
 
-Testando a ortogonalidade de B, vemos que o resultado não é o melhor, muitas entradas são muito próximas de zero, outras nem tanto (na ordem de $10^(-1)$). Isso é uma consequência do mal condicionamento de B.
+Testando a ortogonalidade de $B$, vemos que o resultado não é o melhor, muitas entradas são muito próximas de zero, outras nem tanto (na ordem de $10^(-1)$). Isso é uma consequência do mal condicionamento de B.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -132,7 +132,7 @@ Testando a ortogonalidade de B, vemos que o resultado não é o melhor, muitas e
 ```
   ] )
 
-Para C, temos que avaliar algo diferente, afinal a matriz Q associada a ela não pode ser ortogonal, ela não é LI. Note que há um bloco que é a indentidade, o que acontece devido ao fato de que os dois primeiros vetores são LI, se fossem outros, o bloco da identidadde estaria em outra posição (ao menos é   .
+Para $C$, temos que avaliar algo diferente, afinal a matriz Q associada a ela não pode ser ortogonal, ela não é LI. Note que há um bloco que é a indentidade, o que acontece devido ao fato de que os dois primeiros vetores são LI, se fossem outros, o bloco da identidadde estaria em outra posição (ao menos é   .
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,

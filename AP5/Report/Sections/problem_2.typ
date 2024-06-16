@@ -42,9 +42,9 @@ A versão modificado tem como objetivo trazer uma melhor establidade numérica a
 
 == Testes
 
-Para a matriz A, essa modificação obteve os mesmos resultaos que a anterior. Portanto, não há necessidade expor os resultados.
+Para a matriz $A$, essa modificação obteve os mesmos resultaos que a anterior. Portanto, não há necessidade expor os resultados.
 
-Para a matriz B, uma matriz má condicionada, a modificação alterou minimamente uma entrada da matriz R. Quanto à matriz Q, notamos que a ultima colunas dessa nova Q é diferente da anterior.
+Para a matriz $B$, uma matriz má condicionada, a modificação alterou minimamente uma entrada da matriz $R$. Quanto à matriz $Q$, notamos que a ultima colunas dessa nova $Q$ é diferente da anterior.
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -57,13 +57,12 @@ Para a matriz B, uma matriz má condicionada, a modificação alterou minimament
 
 >> QMb(:,4)'
     0.94679    0.063119    0.25248   -0.18936
-
 ```
   ] )
 
-Associada a essa mudança, vemos uma melhor ortogonalidade da matriz Q utilizando o método de Gram-Schmidt modificado. Contudo, devido à dimensão da matriz esse ganho é mínimo.
+Associada a essa mudança, vemos uma melhor ortogonalidade da matriz $Q$ utilizando o método de Gram-Schmidt modificado. Contudo, devido à dimensão da matriz esse ganho é mínimo.
 
-Considerando matrizes mágicas de ordem par (caracterizadas por serem muito mal condicionadas), fica claro que esse algoritmo produz uma matriz Q muito mais próxima da ortogonalidade. 
+Considerando matrizes mágicas de ordem par (caracterizadas por serem muito mal condicionadas), fica claro que esse algoritmo produz uma matriz $Q$ muito mais próxima da ortogonalidade. 
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
@@ -85,14 +84,13 @@ Considerando matrizes mágicas de ordem par (caracterizadas por serem muito mal 
 ```
   ] )
 
-Resta testar a matriz C. Agora, com essa modificação, deixamos de obter uma fatoração eficaz. Ambas as matrizes possus entradas NaN (não faz sentido verificar ortogonalidade ou acurácia). Isso se deve ao fato de C possuir colunas LD (linearmente dependentes). Logo essa modificação do método restringe a função a matrizes LI (linearmente independentes).
+Resta testar a matriz $C$. Agora, com essa modificação, deixamos de obter uma fatoração eficaz. Ambas as matrizes possus entradas NaN (não faz sentido verificar ortogonalidade ou acurácia). Isso se deve ao fato de $C$ possuir colunas LD (linearmente dependentes). Logo essa modificação do método restringe a função a matrizes LI (linearmente independentes).
 
 #box(
   height: auto, width: 100%, fill: info.light_yellow,
   inset: 10pt, radius: 2pt, [
 ```matlab
 >> [QMc, RMc] = qr_GSM(C)
-
 QMc =
      0.5547    0.83205    NaN    NaN
     0.83205    -0.5547    NaN    NaN
@@ -102,6 +100,5 @@ RMc
          0    0.27735    0.5547    2.2188
          0          0         0       NaN
          0          0         0       NaN
-
 ```
   ] )
