@@ -207,7 +207,7 @@ QKa =
 
 Ao multiplicar as matrizes, o resultado indifere da função. Obtemos umas matriz quase igual a $A$, porém com $9.9e-16$ ao invés de $0$ em uma das entradas, um erro insignificante que pode ser desconsiderado. 
 
-#v(2em)
+#v(1em)
 #align(center)[Testes - $B (4 times 4)$]
 
 Para $B$ a fatoração funciona e as duas versões tem comportamento similar ao apresentado no exemplo anterior.
@@ -231,7 +231,7 @@ Quanto à ortogonalidade e à acurárcia, vemos que essa decomposição é preci
 
 Para matrizes má condicionadas de ordem eleveda, ambas as funções apresentam o mesmo resultado, as matrizes da fatoração vão igualmente bem em todos os testes. Fiz o experimento com uma matriz mágica de ordem 100.
 
-#v(2em)
+#v(1em)
 #align(center)[Testes - $C (2 times 4)$]
 
 A primeira versão de qr_House não é capaz de lidar com matrizes com esses dimensões, onde $n > m$. Assim, só apresentarei os testes com qr_House_2.
